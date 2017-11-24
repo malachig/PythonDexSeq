@@ -16,4 +16,7 @@ RUN apt-get update -y && apt-get install -y wget git unzip bzip2 g++ make libbz2
 RUN apt-get install --yes python2.7-dev python-numpy python-matplotlib python-pip python-htseq
 
 #Install pysam to process bam files
+RUN pip install --upgrade setuptools
+RUN pip install ez_setup
+RUN pip install unroll
 RUN pip install pysam
