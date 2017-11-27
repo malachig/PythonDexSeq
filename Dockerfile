@@ -15,7 +15,7 @@ RUN apt-get update -y && apt-get install -y wget git unzip bzip2 g++ make libbz2
 #Install pip and cutadapt required libraries
 RUN apt-get install --yes python2.7-dev python-numpy python-matplotlib python-pip
 
-#Install pysam to process bam files
+#Install HTSeq we can't use pip
 WORKDIR /usr/local/
 RUN wget --no-check-certificate https://pypi.python.org/packages/source/H/HTSeq/HTSeq-0.6.1p1.tar.gz
 RUN tar -zxvf HTSeq-0.6.1p1.tar.gz
@@ -24,9 +24,14 @@ RUN python setup.py install
 RUN chmod +x scripts/htseq-count
 RUN chmod +x scripts/htseq-qa
 
+#Install pysam to process bam files
+RUN pip install pysam
+
 # add htseq-count to path
 ENV PATH $PATH:/usr/local/HTSeq-0.6.1p1/scripts
 
 # Cleanup 
 RUN rm -rf /usr/local/HTSeq-0.6.1p1.tar.gz
-RUN apt-get clean
+
+#Set wokingDir in /
+WORKDIR /
