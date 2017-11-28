@@ -11,9 +11,12 @@ MAINTAINER Magdalena Arnal, marnal@imim.es
 #Update the repository sources list and install essential libraries
 RUN apt-get update && apt-get install --yes build-essential
 RUN apt-get update -y && apt-get install -y wget git unzip bzip2 g++ make libbz2-1.0 libc6-dev libbz2-dev zlib1g-dev libpq-dev
+RUN apt-get install -y samtools gfortran libhdf5-dev libatlas-base-dev
 
-#Install pip and cutadapt required libraries
+#Install pip and HTSeq required libraries
 RUN apt-get install --yes python2.7-dev python-numpy python-matplotlib python-pip
+RUN pip install -U pip
+RUN pip install -U setuptools
 
 #Install HTSeq we can't use pip
 WORKDIR /usr/local/
