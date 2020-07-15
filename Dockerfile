@@ -34,8 +34,18 @@ RUN pip install pysam
 # add htseq-count to path
 ENV PATH $PATH:/usr/local/HTSeq-0.12.4/scripts
 
+# add DEXseq python scripts to image
+WORKDIR /usr/local/
+RUN wget https://bioconductor.org/packages/release/bioc/src/contrib/DEXSeq_1.34.1.tar.gz
+RUN tar -zxvf DEXSeq_1.34.1.tar.gz
+
+# cp DEXseq python scripts to more obvious location
+RUN cp /usr/local/DEXSeq/inst/python_scripts/* /usr/local/DEXSeq
+
 # Cleanup 
 RUN rm -rf /usr/local/HTSeq-0.12.4.tar.gz
+RUN rm -fr /usr/local/DEXSeq_1.34.1.tar.gz
+RUN apt-get clean
 
 #Set wokingDir in /
 WORKDIR /
